@@ -19,6 +19,15 @@ if os.path.getsize("subject.json") > 0 :
 else:
     lst1=[]
 
+if os.path.getsize("exam.json") > 0 :
+    with open("exam.json","r") as f:
+        lst_examination = json.load(f)
+        if lst_examination != "":
+            lst2 = lst_examination
+else:
+    lst2=[]
+
+
 #Student management system starts
 class student_name_register:
     def __init__(self,name,id,age,email,phone_no,enroll_date):
@@ -145,12 +154,93 @@ class subject_view:
 
 # subject management system ends 
 
+#---------------------------------------------------------------------------------------------------------------------
+
+#examination management system starts
+
+class exam_add:
+    def __init__(self,dit):
+        self.dit = dit
+    def add(self):
+        self.dit1 = {}
+        self.percent = 0
+        self.sum1 = 0
+        self.dit1["name"] = self.dit["name"]
+        for val in lst2 :
+            if self.dit["name"] == val["name"] :
+                return f"student marks are already there!"
+        else:
+            for val in lst1:
+                self.dit1[val['name']] = self.dit[val['name']]
+                self.sum1 += self.dit[val["name"]]
+            self.percent = self.sum1/(len(lst1))
+            if self.percent >= 90 :
+                self.grade = "A+"
+            elif self.grade>=80 :
+                self.grade = "A"
+            elif self.grade >=70 :
+                self.grade = "B+"
+            elif self.grade >= 60 :
+                self.grade = "B"
+            elif self.grade >= 50 :
+                self.grade ="C+"
+            elif self.grade >=40 :
+                self.grade = "C"
+            else:
+                self.grade = "Fail"
+            self.dit1["total"] = self.sum1
+            self.dit1["percentage"] = self.percent
+            self.dit["Grade"] = self.grade
+            lst2.append(self.dit1)
+            return f"new marks are added in {self.dit['name']}"
+
+class exam_remove :
+    def __init__(self,name):
+        self.name = name
+    def remove(self):
+        for val in lst2:
+            if self.name == val["name"] :
+                lst2.remove(val)
+                return f"student removed!"
+        else:
+            return f"Student not found!"
+
+class exam_view:
+    def __init__(self,name):
+        self.name = name
+    def view(self):
+        for val in lst2:
+            if self.name == val["name"] :
+                return val
+        else:
+            return f"Student not found!"
+
+class exam_update:
+    def __init__(self,name,subject,mark):
+        self.subject= subject
+        self.mark = mark
+        self.name = name
+    def update(self):
+        for val in lst2:
+            if self.name == val["name"] :
+                val[self.subject] = self.mark
+                return f"Mark was updated"
+        else:
+            return f"student wasn't found!"
+
+
+
+
+#examination management system ends
+
+
+
 
 
 print("student management/subject management/examination and marks/attendence management/academic report")
 answer1 = input("Which you want to access?").lower().strip().replace(" ","")
 
-
+#student management system ---------------------------------------------------------------------------------------
 if answer1 == "studentmanagement" :
     register1= input("Do you want to register the student or remove?(register/remove/none)").lower()
     if register1 == "register" :
@@ -206,6 +296,10 @@ if answer1 == "studentmanagement" :
             student_update = student_data_update(name,change,new_change)
             print(student_update.update())
             update = input("Do you want to update the student data again ?(y/n)").lower()
+
+
+#subject management -------------------------------------------------------------------------------------------------------------
+
 elif answer1 == "subjectmanagement" :
     subject1 = input("(add/remove/view/update) subjects in the academic curriculum?").lower()
 
@@ -262,3 +356,46 @@ elif answer1 == "subjectmanagement" :
 
             else:
                 subject1 = "no"
+
+#examination management system --------------------------------------------------------------------------------
+elif answer1 == "examinationandmark" :
+    exam1 = input("Do you want to add/remove/update/view the mark?").lower()
+
+    if exam1 == "add" :
+        while exam1 == "add" :
+            dit = {}
+            name = input("Enter the name of the student :").lower()
+            dit["name"] = name
+            for val in lst1 :
+                mark = int(input(f"Enter the mark for {val['name']}"))
+                dit[val["name"]] = mark
+            e_add = exam_add(dit)
+            print(e_add.add())
+            exam1 = input("Do you want to add more student marks?(add/no)").lower()
+
+    elif exam1 == "remove" :
+        while exam1 == "remove" :
+            name = input("Enter the name of the student :").lower()
+            r_exam = exam_remove(name)
+            print(r_exam.remove())
+            exam1 = input("Do you want to remove more ? (remove/no)")
+
+    elif exam1 == "view" :
+        while exam1 == "view" :
+            name = input("Enter the name of the student :").lower()
+            v_exam = exam_view(name)
+            print(v_exam.view())
+            exam1 = input("Do you want to view more students(view/no)")
+
+    elif exam1 == "update":
+        while exam1 == "update":
+            name = input("Enter the name of the student :").lower()
+            lst_update = []
+            for val in lst1:
+                lst_update.append(val["name"])
+            print("which subject do you want to update :",lst_update)
+            update1 = input("Enter the name of the subject :")
+            mark1 = int(input("Enter the updated mark of the subject :"))
+            up_exam = exam_update(name,update1,mark1)
+            print(up_exam.update())
+            exam1 = input("Do you want to update any other too?(update/no)")
