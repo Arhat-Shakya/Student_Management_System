@@ -1,1 +1,35 @@
-[]
+[
+    {
+        "year": 2026,
+        "month": "9",
+        "day": 1,
+        "john": "p",
+        "sam": "p",
+        "aryan": "p",
+        "arnav": "a",
+        "total present today ": 3,
+        "total absent today ": 1
+    },
+    {
+        "year": 2026,
+        "month": "9",
+        "day": 3,
+        "john": "p",
+        "sam": "p",
+        "aryan": "p",
+        "arnav": "p",
+        "total present today ": 3,
+        "total absent today ": 1
+    },
+    {
+        "year": 2025,
+        "month": "8",
+        "day": 3,
+        "john": "p",
+        "sam": "p",
+        "aryan": "a",
+        "arnav": "p",
+        "total present today ": 3,
+        "total absent today ": 1
+    }
+]

@@ -317,6 +317,12 @@ class attendence_update:
         for val in lst3:
             if self.year == val["year"] and self.month == val["month"] and self.day == val["day"] :
                 val[self.name] = self.attend
+                if self.attend == "p":
+                    val["total present today "] += 1
+                    val["total present today "] -= 1
+                else:
+                    val["total present today "] += 1
+                    val["total present today "] -= 1                  
                 return f"updated!"
         else:
             return f"attendence not found!"
@@ -374,7 +380,7 @@ class attendence_percentage:
 
 
 
-print("student management/subject management/examination and marks/attendence management/academic report")
+print("student management/subject management/examination and mark/attendence management/academic report")
 answer1 = input("Which you want to access?").lower().strip().replace(" ","")
 
 #student management system ---------------------------------------------------------------------------------------
@@ -414,6 +420,7 @@ if answer1 == "studentmanagement" :
             for val in lst:
                 if name == val["name"] :
                     print("Student ID is :",val["id"])
+                    break
             else:
                 print("Student wasn't found!")
             id = input("Enter the ID :")
@@ -452,7 +459,9 @@ elif answer1 == "subjectmanagement" :
             name = input("Enter the subject name").lower()
             max_mark = int(input("Enter the full mark of this subject"))
             character = string.ascii_letters + string.digits
-            id = secrets.choice(character)
+            id = ""
+            for _ in range(5) :
+                id += secrets.choice(character)
             sub_add = subject_add(name,max_mark,id)
             print(sub_add.add())
             subject1 = input("Do you want to add more subjects?(add/n0)").lower()
@@ -495,13 +504,21 @@ elif answer1 == "examinationandmark" :
     if exam1 == "add" :
         while exam1 == "add" :
             dit = {}
+            ans = 0
             name = input("Enter the name of the student :").lower()
             dit["name"] = name
-            for val in lst1 :
+            for val in lst1 : 
                 mark = int(input(f"Enter the mark for {val['name']}"))
-                dit[val["name"]] = mark
-            e_add = exam_add(dit)
-            print(e_add.add())
+                if mark <= val["mark"] :
+                    dit[val["name"]] = mark
+                    ans = 12345
+                else:
+                    print("Mark that you entered was more than full mark try again please!")
+                    ans = 0 
+                    break
+            if ans == 12345 :
+                e_add = exam_add(dit)
+                print(e_add.add())
             exam1 = input("Do you want to add more student marks?(add/no)").lower()
 
     elif exam1 == "remove" :
@@ -527,8 +544,18 @@ elif answer1 == "examinationandmark" :
             print("which subject do you want to update :",lst_update)
             update1 = input("Enter the name of the subject :")
             mark1 = int(input("Enter the updated mark of the subject :"))
-            up_exam = exam_update(name,update1,mark1)
-            print(up_exam.update())
+            for val in lst1:
+                if update1 == val["name"] :
+                    if mark1 <= val["mark"] :
+                        up_exam = exam_update(name,update1,mark1)
+                        print(up_exam.update())
+                        break
+                    else:
+                        print("Mark was over the full mark try again please")
+                        break
+            else:
+                print("subject not found!")
+                break
             exam1 = input("Do you want to update any other too?(update/no)").lower()
 
 

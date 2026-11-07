@@ -1,1 +1,58 @@
-[]
+[
+    {
+        "name": "john",
+        "english": 89,
+        "computer": 67,
+        "physics": 67,
+        "chemistry": 90,
+        "total": 374,
+        "percentage": 82.19780219780219,
+        "grade": "A",
+        "java": 60,
+        "c++": 90
+    },
+    {
+        "name": "sam",
+        "english": 90,
+        "computer": 60,
+        "physics": 88,
+        "chemistry": 90,
+        "total": 308,
+        "percentage": 86.76056338028168,
+        "grade": "A",
+        "java": 70
+    },
+    {
+        "name": "aryan",
+        "english": 60,
+        "computer": 60,
+        "physics": 70,
+        "chemistry": 80,
+        "total": 265,
+        "percentage": 74.64788732394366,
+        "grade": "B+",
+        "java": 55
+    },
+    {
+        "name": "arnav",
+        "english": 60,
+        "computer": 67,
+        "physics": 80,
+        "chemistry": 70,
+        "total": 287,
+        "percentage": 80.84507042253522,
+        "grade": "A",
+        "java": 70
+    },
+    {
+        "name": "test",
+        "computer": 70,
+        "physics": 56,
+        "chemistry": 78,
+        "java": 45,
+        "total": 319,
+        "percentage": 70.1098901098901,
+        "grade": "B+",
+        "c++": 70
+    }
+]

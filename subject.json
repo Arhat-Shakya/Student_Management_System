@@ -1,1 +1,27 @@
-[]
+[
+    {
+        "name": "computer",
+        "mark": 75,
+        "id": "A098P"
+    },
+    {
+        "name": "physics",
+        "mark": 100,
+        "id": "RWUyA"
+    },
+    {
+        "name": "chemistry",
+        "mark": 100,
+        "id": "3KGQw"
+    },
+    {
+        "name": "java",
+        "mark": 80,
+        "id": "sWWz3"
+    },
+    {
+        "name": "c++",
+        "mark": 100,
+        "id": "PYglj"
+    }
+]
